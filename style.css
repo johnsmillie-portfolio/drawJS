@@ -1,0 +1,10 @@
+*{
+    box-sizing: border-box;
+}
+
+.hero{
+    height: 20vh;
+}
+.main{
+    height: 78vh;
+}

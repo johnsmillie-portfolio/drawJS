@@ -1,0 +1,20 @@
+{
+  "name": "drawjs",
+  "version": "1.0.0",
+  "description": "Etch-a-Sketch",
+  "homepage": "https://github.com/johnsmillie-portfolio/drawJS#readme",
+  "bugs": {
+    "url": "https://github.com/johnsmillie-portfolio/drawJS/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnsmillie-portfolio/drawJS.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

@@ -26,3 +26,7 @@
   justify-content: center;
   
 }
+
+#focusable:focus {
+    outline: 2px solid blue;
+  }

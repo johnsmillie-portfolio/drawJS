@@ -52,17 +52,17 @@ bgColorSelectorContainer.className = "bgColorSelectorContainer";
 
 const penSwitch = document.createElement("button");
 penSwitch.className = "penSwitch";
-penSwitch.textContent = "Pen Down";
+penSwitch.textContent = "Pen Off";
 penSwitch.style.cssText = `
     cursor: pointer;
     font-size: 20px;
-    background-color: lightgrey;
-    color: red;
+    background-color: red;
+    color: lightgray;
     border: 2px solid white;
     border-radius: 5px;
     padding: 5px 15px;
     box-shadow: 0px 8px 8px 0px rgba(25,0,0,0.2);
-
+    width: 125px;
   `;
 
 

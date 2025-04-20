@@ -2,10 +2,10 @@
 
 
 
-function initPixels(height, width, divisor){
-    
-    let rows = height/divisor;
-    let cols = width/divisor;
+function initPixels(height, width, divisor) {
+
+    let rows = height / divisor;
+    let cols = width / divisor;
     const gridContainer = document.createElement("div");
     gridContainer.className = "gridContainer";
     gridContainer.style.cssText = `
@@ -14,7 +14,7 @@ function initPixels(height, width, divisor){
         justify-content: center;
         align items: center;
     `;
-    for(let i = 0; i < rows; i++){
+    for (let i = 0; i < rows; i++) {
         let row = document.createElement("div");
         row.className = "row";
         row.style.cssText = `
@@ -22,9 +22,11 @@ function initPixels(height, width, divisor){
             justify-content: center;
             align-items: center;
         `;
-        for(let j = 0; j < cols; j++){
+        for (let j = 0; j < cols; j++) {
             let col = document.createElement("div");
-            col.className = [i,j];
+            col.className = [i, j];
+            col.id = "focusable"
+            col.tabIndex = "0";
             col.style.cssText = `
                 border: 1px solid black;
                 height: ${divisor}px;
@@ -37,39 +39,38 @@ function initPixels(height, width, divisor){
     return gridContainer;
 }
 
-function initCanvas(height, width, divisor){
+function initCanvas(height, width, divisor, bgColor) {
     const canvas = document.createElement("div");
-    //canvas.style.backg
     canvas.className = "canvas";
     canvas.style.cssText = `
         height: ${height}px;
         width: ${width}px;
-        background-color: antiquewhite;
+        background-color: ${bgColor};
         border: 2px solid grey;
         border-radius: 5px;
-    `; 
+    `;
     const grid = initPixels(height, width, divisor);
     canvas.appendChild(grid);
-    return canvas;   
+    return canvas;
 }
 
-function getRandom(num){
-    return ((Math.random())*num).toFixed(0);  
-    
+function getRandom(num) {
+    return ((Math.random()) * num).toFixed(0);
+
 }
 
-function setPointer(i,j){
-    const className =  i.toString(10) + "," + j.toString(10);
+function setPixelFocus(i, j) {
+    const className = i.toString(10) + "," + j.toString(10);
     const pixel = document.getElementsByClassName(className)[0];
-    pixel.style.border = "solid 1px blue";
+    pixel.focus();
 }
 
 
-function setPixel( i, j, color){
-    const className =  i.toString(10) + "," + j.toString(10);
+function setPixelColor(i, j, color) {
+    const className = i.toString(10) + "," + j.toString(10);
     const pixel = document.getElementsByClassName(className)[0];
     pixel.style.backgroundColor = color;
 }
 
 
-export {initCanvas, setPixel, setPointer}
+export { initCanvas, setPixelColor, setPixelFocus }

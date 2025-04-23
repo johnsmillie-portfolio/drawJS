@@ -91,4 +91,17 @@ function togglePenSwitch(penOn) {
 
 }
 
-export { initCanvas, initPixels, setPixelColor, setPixelFocus, unsetPixelFocus, togglePenColor, toggleBgColor, togglePenSwitch }
+function toggleSize(sizeDD){
+    const content = document.getElementsByClassName("sizeSelectorContent")[0];
+    const label = document.getElementsByClassName("sizeSelectorButton")[0];
+    content.style.display = sizeDD ? "none" : "block";
+    label.textContent = "Size" + (sizeDD ? " \u25be" : " \u25b4"); 
+}
+
+function resetToggles(){
+    togglePenColor(true);
+    toggleBgColor(true);
+    toggleSize(true);
+}
+
+export { initCanvas, initPixels, setPixelColor, setPixelFocus, unsetPixelFocus, togglePenColor, toggleBgColor, togglePenSwitch, toggleSize, resetToggles }

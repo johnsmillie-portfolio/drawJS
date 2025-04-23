@@ -1,6 +1,9 @@
 *{
     box-sizing: border-box;
 }
+body{
+    min-width: fit-content;
+}
 
 .hero{
     height: 150px;
@@ -24,6 +27,7 @@
 .main{
   display: flex;
   justify-content: center;
+  min-width: fit-content;
 }
 
 #focusable:focus {

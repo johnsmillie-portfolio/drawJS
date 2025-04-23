@@ -7,7 +7,7 @@ model.style.cssText = `
     align-items: center;
     flex-direction: column;
     height: 800px;
-    width: 1200px;
+    width: 1100px;
     background: linear-gradient( rgb(250, 10, 10,.9) , red 85%, rgb(250, 10, 10,.9));
     border: 3px solid darkgrey;
     border-radius: 5px;
@@ -44,7 +44,8 @@ penColorSelectorContainer.className = "penColorSelectorContainer";
 const bgColorSelectorContainer = document.createElement("div");
 bgColorSelectorContainer.className = "bgColorSelectorContainer";
 
-
+const sizeSelectorContainer = document.createElement("div");
+sizeSelectorContainer.className = "sizeSelectorContainer";
 
 
 // PEN SWITCH   
@@ -88,6 +89,7 @@ penColorSelectorButton.style.cssText = `
     padding: 5px 15px;
     border: 2px solid white;
     border-radius: 5px;
+    min-width: 150px;
   `;
 
 
@@ -119,7 +121,6 @@ colors.forEach((el) => {
         font-size: 18px;
         padding: 5px 10px;
     `;
-   // b.style.color = el.toLowerCase().replace();
     penColorSelectorContent.appendChild(b);
 })
 
@@ -142,6 +143,7 @@ bgColorSelectorButton.style.cssText = `
     padding: 5px 15px;
     border: 2px solid white;
     border-radius: 5px;
+    min-width: 225px
   `;
 
 
@@ -173,9 +175,84 @@ colors.forEach((el) => {
         font-size: 18px;
         padding: 5px 10px;
     `;
-   // b.style.color = el.toLowerCase();
     bgColorSelectorContent.appendChild(b);
 })
+
+// SIZE SELELCTOR
+/*********************************************************************** */
+
+sizeSelectorContainer.style.cssText = `
+    display; inline-block;
+    position: relative;
+`;
+
+const sizeSelectorButton = document.createElement("button");
+sizeSelectorButton.className = "sizeSelectorButton";
+sizeSelectorButton.textContent = "Size \u25be";
+sizeSelectorButton.style.cssText = `
+    cursor: pointer;
+    font-size: 20px;
+    background-color: red;
+    color: white;
+    box-shadow: 0px 8px 8px 0px rgba(25,0,0,0.2);
+    padding: 5px 15px;
+    border: 2px solid white;
+    border-radius: 5px;
+    min-width: 125px;
+`;
+
+const sizeSelectorContent = document.createElement("div");
+sizeSelectorContent.className = "sizeSelectorContent";
+sizeSelectorContent.style.cssText = `
+    display: none;
+    position: absolute;
+    background-color: grey;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 5px 10px;
+    z-index: 1;
+    `;   
+
+
+["Small", "Medium", "Large"].forEach((el) => {
+    let b = document.createElement("button");
+    b.textContent = el;
+    b.className = "size";
+    b.id = el.toLowerCase();
+    b.style.cssText = `
+        cursor: pointer;
+        display: block;
+        background-color: inherit;
+        text-align: left;
+        border: none;
+        font-size: 18px;
+        padding: 5px 10px;
+    `;
+    sizeSelectorContent.appendChild(b);
+})
+
+const small = {
+    "height":300,
+    "width": 600,
+    "modelHeight": "600px",
+    "modelWidth": "900px"
+}
+
+const medium = {
+    "height": 500,
+    "width": 800,
+    "modelHeight": "800px",
+    "modelWidth": "1100px"
+}
+
+const large = {
+    "height": 800,
+    "width": 1100,
+    "modelHeight": "1100px",
+    "modelWidth": "1400px"
+}
+
+
  // BUILD THE SELECTORS
 /************************************************************************************************* */
 
@@ -186,27 +263,8 @@ penColorSelectorContainer.appendChild(penColorSelectorContent);
 bgColorSelectorContainer.appendChild(bgColorSelectorButton);
 bgColorSelectorContainer.appendChild(bgColorSelectorContent);
 
-const penColorBlack = document.createElement("paragraph");
-const penColorBlue = document.createElement("paragraph");
-const penColorGreen = document.createElement("paragraph");
-const penColorYellow = document.createElement("paragraph");
-
-penColorSelectorContent.appendChild(penColorBlack);
-penColorSelectorContent.appendChild(penColorBlue);
-penColorSelectorContent.appendChild(penColorGreen);
-penColorSelectorContent.appendChild(penColorYellow);
-
-const bgColorBlack = document.createElement("paragraph");
-const bgColorBlue = document.createElement("paragraph");
-const bgColorGreen = document.createElement("paragraph");
-const bgColorYellow = document.createElement("paragraph");
-
-bgColorSelectorContent.appendChild(bgColorBlack);
-bgColorSelectorContent.appendChild(bgColorBlue);
-bgColorSelectorContent.appendChild(bgColorGreen);
-bgColorSelectorContent.appendChild(bgColorYellow);
-
-
+sizeSelectorContainer.appendChild(sizeSelectorButton);
+sizeSelectorContainer.appendChild(sizeSelectorContent);
 
 // CANVAS CONTAINER
 /********************************************************************************************** */
@@ -294,6 +352,7 @@ clearContainer.appendChild(clearButton);
 controls.appendChild(penSwitchContainer);
 controls.appendChild(penColorSelectorContainer);
 controls.appendChild(bgColorSelectorContainer);
+controls.appendChild(sizeSelectorContainer);
 controlsContainer.appendChild(controls);
 knobs.appendChild(knobRightLeft);
 knobs.appendChild(clearContainer);
@@ -309,4 +368,4 @@ model.appendChild(knobs);
 
 
 
-export {model, primary, penSwitch};
+export {model, primary, penSwitch, small, medium, large};

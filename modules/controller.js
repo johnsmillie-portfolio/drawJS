@@ -1,8 +1,11 @@
 
-import {model, primary} from "./model.js";
-import { initCanvas, initPixels, setPixelColor, setPixelFocus, unsetPixelFocus, togglePenColor, toggleBgColor, togglePenSwitch } from "./helper.js";
+import {model, primary, small, medium, large} from "./model.js";
+import { initCanvas, initPixels, setPixelColor, setPixelFocus, unsetPixelFocus, togglePenColor, toggleBgColor, togglePenSwitch, toggleSize, resetToggles } from "./helper.js";
 
-
+// TODO 
+// highlight the active pen/bg color
+// offer screen sizes
+// pointer selector when on the canvas
 
 let height = 500;
 let width = 800;
@@ -15,12 +18,15 @@ let bgColor = "antiquewhite";
 let penOn = false;
 let penColorDD = false;
 let bgColorDD = false;
+let sizeDD = false;
 let canvas;
 let pixels;
-init();
+
 
 
 function init(){
+    rows = height/divisor;
+    cols = width/divisor;
     canvas = initCanvas(height, width, bgColor);
     pixels = initPixels(height, width, divisor);
     canvas.replaceChildren(pixels);
@@ -52,49 +58,60 @@ document.addEventListener("keydown", (e) => {
 })
 
 document.addEventListener("click", (e) => {
-   
-    if(e.target.className === "clearButton"){
-        init();
-        setPixelFocus(pointer[0], pointer[1]);
-        togglePenSwitch(true);
-        togglePenColor(true);
-        toggleBgColor(true);
-        penOn = penColorDD = bgColorDD = false;
-    }
-    else if(e.target.className === "penSwitch"){
-        togglePenSwitch(penOn);
-        penOn = !penOn;
-        penOn && setPixelColor(pointer[0], pointer[1], color);
-    }
-    else if(e.target.className === "penColorSelectorButton"){
-        togglePenColor(penColorDD);
-        penColorDD = !penColorDD;
-    } 
-    else if(e.target.className === "bgColorSelectorButton"){
-        toggleBgColor(bgColorDD);
-        bgColorDD = !bgColorDD;
-    } 
-    else if(e.target.className === "penColor"){
-        color = e.target.id;
-        penOn && setPixelColor(pointer[0], pointer[1], color);
-        togglePenColor(true);
-        penColorDD = false;
-    }
-    else if (e.target.className === "bgColor"){
-        bgColor = e.target.id;
-        let c = initCanvas(height, width, bgColor);
-        c.appendChild(pixels);
-        primary.replaceChildren(c);
-        toggleBgColor(true);
-        bgColorDD = false;
-    }
-    else{
-        togglePenColor(true);
-        toggleBgColor(true);
-        penColorDD = false
-        bgColorDD = false;
+    switch(e.target.className){
+        case "clearButton": 
+            init();
+            setPixelFocus(pointer[0], pointer[1]);
+            resetToggles();
+            togglePenSwitch(true);
+            penOn = penColorDD = bgColorDD = sizeDD = false;
+            break;
+        case "penSwitch":
+            togglePenSwitch(penOn);
+            penOn = !penOn;
+            penOn && setPixelColor(pointer[0], pointer[1], color);
+            break;
+        case "penColorSelectorButton":
+            togglePenColor(penColorDD);
+            penColorDD = !penColorDD;
+            break; 
+        case "bgColorSelectorButton":
+            toggleBgColor(bgColorDD);
+            bgColorDD = !bgColorDD;
+            break; 
+        case "penColor":
+            color = e.target.id;
+            penOn && setPixelColor(pointer[0], pointer[1], color);
+            togglePenColor(true);
+            penColorDD = false;
+            break;
+        case  "bgColor":
+            bgColor = e.target.id;
+            let c = initCanvas(height, width, bgColor);
+            c.appendChild(pixels);
+            primary.replaceChildren(c);
+            toggleBgColor(true);
+            bgColorDD = false;
+            break;
+        case "sizeSelectorButton":
+            toggleSize(sizeDD);
+            sizeDD = !sizeDD;
+            break;
+        case "size":
+            const obj = e.target.id === "small" ? small : e.target.id === "medium" ? medium : large;
+            height = obj.height;
+            width = obj.width;
+            init();
+            document.getElementsByClassName("model")[0].style.height = obj.modelHeight;
+            document.getElementsByClassName("model")[0].style.width = obj.modelWidth;
+            pointer[0] = pointer[1] = 0;
+            setPixelFocus(0,0);
+            togglePenSwitch(true);
+        default: 
+            resetToggles();
+            penColorDD = bgColorDD = sizeDD = false;        
     }
     
 })
 
-export {model, setPixelFocus};
+export {model, setPixelFocus, init};

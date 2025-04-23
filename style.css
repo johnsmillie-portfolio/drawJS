@@ -6,8 +6,7 @@
     height: 150px;
     display: flex;
     justify-content: center;
-    align-items:first baseline;
-    
+    align-items:first baseline; 
 }
 
 .logo{
@@ -19,14 +18,18 @@
     padding: 24px;
     border-radius: 3px;
     text-decoration: underline;
+    border: 2px solid grey;
 }
 
 .main{
   display: flex;
   justify-content: center;
-  
 }
 
 #focusable:focus {
-    outline: 2px solid blue;
-  }
+    outline: 2px solid rgb(9, 155, 148);
+}
+
+#pointer {
+    outline: 2px solid grey;  
+}

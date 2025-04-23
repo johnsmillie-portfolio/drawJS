@@ -1,7 +1,4 @@
 
-
-
-
 function initPixels(height, width, divisor) {
 
     let rows = height / divisor;
@@ -25,13 +22,11 @@ function initPixels(height, width, divisor) {
         for (let j = 0; j < cols; j++) {
             let col = document.createElement("div");
             col.className = [i, j];
-            col.id = "focusable"
             col.tabIndex = "0";
             col.style.cssText = `
-                border: 1px solid black;
                 height: ${divisor}px;
                 width: ${divisor}px;
-            `
+            `;
             row.appendChild(col);
         }
         gridContainer.appendChild(row);
@@ -39,7 +34,7 @@ function initPixels(height, width, divisor) {
     return gridContainer;
 }
 
-function initCanvas(height, width, divisor, bgColor) {
+function initCanvas(height, width, bgColor) {
     const canvas = document.createElement("div");
     canvas.className = "canvas";
     canvas.style.cssText = `
@@ -48,21 +43,23 @@ function initCanvas(height, width, divisor, bgColor) {
         background-color: ${bgColor};
         border: 2px solid grey;
         border-radius: 5px;
+        margin: 1px;
     `;
-    const grid = initPixels(height, width, divisor);
-    canvas.appendChild(grid);
     return canvas;
 }
 
-function getRandom(num) {
-    return ((Math.random()) * num).toFixed(0);
 
+function unsetPixelFocus(i, j) {
+    const className = i.toString(10) + "," + j.toString(10);
+    const pixel = document.getElementsByClassName(className)[0];
+    pixel.removeAttribute("id");
 }
+
 
 function setPixelFocus(i, j) {
     const className = i.toString(10) + "," + j.toString(10);
     const pixel = document.getElementsByClassName(className)[0];
-    pixel.focus();
+    pixel.id = "pointer";
 }
 
 
@@ -72,5 +69,26 @@ function setPixelColor(i, j, color) {
     pixel.style.backgroundColor = color;
 }
 
+function togglePenColor(penColorDD) {
+    const content = document.getElementsByClassName("penColorSelectorContent")[0];
+    const label = document.getElementsByClassName("penColorSelectorButton")[0];
+    content.style.display = !penColorDD ? "block" : "none";
+    label.textContent = "Pen Color" + (!penColorDD ? " \u25b4" : " \u25be");
 
-export { initCanvas, setPixelColor, setPixelFocus }
+}
+
+function toggleBgColor(bgColorDD) {
+    const content = document.getElementsByClassName("bgColorSelectorContent")[0];
+    const label = document.getElementsByClassName("bgColorSelectorButton")[0];
+    content.style.display = !bgColorDD ? "block" : "none";
+    label.textContent = "Background Color" + (!bgColorDD ? " \u25b4" : " \u25be");
+}
+
+function togglePenSwitch(penOn) {
+    const button = document.getElementsByClassName("penSwitch")[0];
+    button.style.color = !penOn ? "#2fff4b" : "lightgray";
+    button.textContent = !penOn ? "Pen On" : "Pen Off";
+
+}
+
+export { initCanvas, initPixels, setPixelColor, setPixelFocus, unsetPixelFocus, togglePenColor, toggleBgColor, togglePenSwitch }

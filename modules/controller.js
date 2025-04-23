@@ -1,32 +1,38 @@
 
 import {model, primary} from "./model.js";
-import { initCanvas, setPixelColor, setPixelFocus } from "./helper.js";
+import { initCanvas, initPixels, setPixelColor, setPixelFocus, unsetPixelFocus, togglePenColor, toggleBgColor, togglePenSwitch } from "./helper.js";
+
+
 
 let height = 500;
 let width = 800;
 let divisor = 10;
 let rows = height/divisor;
 let cols = width/divisor;
-let pointer = [0,0];
+const pointer = [0,0];
 let color = "black";
 let bgColor = "antiquewhite";
 let penOn = false;
-const pace = 1;
+let penColorDD = false;
+let bgColorDD = false;
+let canvas;
+let pixels;
 init();
 
 
 function init(){
-    const canvas = initCanvas(height, width, divisor, bgColor);
-    primary.appendChild(canvas);
+    canvas = initCanvas(height, width, bgColor);
+    pixels = initPixels(height, width, divisor);
+    canvas.replaceChildren(pixels);
+    primary.replaceChildren(canvas);    
 }
 
-function setPointerPixel(){
-    setPixelFocus(pointer[0], pointer[1]);
-}
 
 
 document.addEventListener("keydown", (e) => {
+    e.preventDefault();
     let key = e.key;
+    const unset = [pointer[0], pointer[1]];
     if(key === "ArrowDown" && pointer[0] < rows-1){
         pointer[0]++;
     }
@@ -39,26 +45,56 @@ document.addEventListener("keydown", (e) => {
     else if(key === "ArrowRight" && pointer[1] < cols-1){
         pointer[1]++;
     }
+    unsetPixelFocus(unset[0], unset[1]);
     setPixelFocus(pointer[0], pointer[1]);
     penOn && setPixelColor(pointer[0], pointer[1], color);
-
+    
 })
 
 document.addEventListener("click", (e) => {
-    if(e.target.id === "focusable"){
-        pointer = e.target.className.split(",");
+   
+    if(e.target.className === "clearButton"){
+        init();
         setPixelFocus(pointer[0], pointer[1]);
-        penOn && setPixelColor(pointer[0], pointer[1], color);
-    }   
-    else if(e.target.className === "clearButton"){
-        primary.replaceChildren(initCanvas(height,width,divisor,bgColor))
+        togglePenSwitch(true);
+        togglePenColor(true);
+        toggleBgColor(true);
+        penOn = penColorDD = bgColorDD = false;
     }
     else if(e.target.className === "penSwitch"){
+        togglePenSwitch(penOn);
         penOn = !penOn;
-        e.target.style.color = penOn? "#2fff4b" : "lightgray";
-        e.target.textContent = penOn? "Pen On" : "Pen Off";
         penOn && setPixelColor(pointer[0], pointer[1], color);
+    }
+    else if(e.target.className === "penColorSelectorButton"){
+        togglePenColor(penColorDD);
+        penColorDD = !penColorDD;
     } 
+    else if(e.target.className === "bgColorSelectorButton"){
+        toggleBgColor(bgColorDD);
+        bgColorDD = !bgColorDD;
+    } 
+    else if(e.target.className === "penColor"){
+        color = e.target.id;
+        penOn && setPixelColor(pointer[0], pointer[1], color);
+        togglePenColor(true);
+        penColorDD = false;
+    }
+    else if (e.target.className === "bgColor"){
+        bgColor = e.target.id;
+        let c = initCanvas(height, width, bgColor);
+        c.appendChild(pixels);
+        primary.replaceChildren(c);
+        toggleBgColor(true);
+        bgColorDD = false;
+    }
+    else{
+        togglePenColor(true);
+        toggleBgColor(true);
+        penColorDD = false
+        bgColorDD = false;
+    }
+    
 })
 
-export {model, setPointerPixel};
+export {model, setPixelFocus};

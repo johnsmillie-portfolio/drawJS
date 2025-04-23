@@ -28,9 +28,10 @@ controls.className = "controls";
 controls.style.cssText = `
     padding: 30px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;;
     width: 80%;
+    gap: 32px;
     `;
 
 
@@ -48,8 +49,6 @@ bgColorSelectorContainer.className = "bgColorSelectorContainer";
 
 // PEN SWITCH   
 /********************************************************************************************** */
-
-
 const penSwitch = document.createElement("button");
 penSwitch.className = "penSwitch";
 penSwitch.textContent = "Pen Off";
@@ -65,7 +64,10 @@ penSwitch.style.cssText = `
     width: 125px;
   `;
 
+// COLORS
+/************************************************************************************************ */
 
+const colors = ["Black", "White", "Antique White", "Red", "Orange", "Yellow", "Green", "Blue", "Purple"];
 
   // PEN COLORS
 /************************************************************************************************** */
@@ -95,13 +97,31 @@ penColorSelectorContent.className = "penColorSelectorContent";
 penColorSelectorContent.style.cssText = `
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
+    background-color: grey;
     min-width: 160px;
     box-shadow: 0px 8px 8px 0px rgba(25,0,0,0.2);
-    padding: 12px 16px;
+    padding: 5px 10px;
     z-index: 1;
     `;   
 
+colors.forEach((el) => {
+    let b = document.createElement("button");
+    b.textContent = el;
+    b.className = "penColor";
+    b.id = el.toLowerCase().replace(" ", "");
+    b.style.cssText = `
+        cursor: pointer;
+        color: ${el.toLowerCase().replace(" ","")};
+        display: block;
+        background-color: inherit;
+        text-align: left;
+        border: none;
+        font-size: 18px;
+        padding: 5px 10px;
+    `;
+   // b.style.color = el.toLowerCase().replace();
+    penColorSelectorContent.appendChild(b);
+})
 
     // BACKGROUND COLOR
 /*********************************************************************************************** */
@@ -125,21 +145,37 @@ bgColorSelectorButton.style.cssText = `
   `;
 
 
-
 const bgColorSelectorContent = document.createElement("div");
 bgColorSelectorContent.className = "bgColorSelectorContent";
 bgColorSelectorContent.style.cssText = `
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
+    background-color: grey;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 12px 16px;
+    padding: 5px 10px;
     z-index: 1;
     `;   
 
 
-
+colors.forEach((el) => {
+    let b = document.createElement("button");
+    b.textContent = el;
+    b.className = "bgColor";
+    b.id = el.toLowerCase().replace(" ", "");
+    b.style.cssText = `
+        cursor: pointer;
+        color: ${el.toLowerCase().replace(" ", "")};
+        display: block;
+        background-color: inherit;
+        text-align: left;
+        border: none;
+        font-size: 18px;
+        padding: 5px 10px;
+    `;
+   // b.style.color = el.toLowerCase();
+    bgColorSelectorContent.appendChild(b);
+})
  // BUILD THE SELECTORS
 /************************************************************************************************* */
 
@@ -173,7 +209,7 @@ bgColorSelectorContent.appendChild(bgColorYellow);
 
 
 // CANVAS CONTAINER
-/********************************************************************************************************** */
+/********************************************************************************************** */
 const primary = document.createElement("div");
 primary.className = "primary";
 primary.style.cssText = `
@@ -182,18 +218,28 @@ primary.style.cssText = `
     align-items: center;
     `;
 
+// DIRECTIONS
+/************************************************************************************************ */
 
-
+const directions = document.createElement("p");
+directions.style.cssText = `
+    text-align: center;
+    background-color: red;
+    color: silver;
+    padding-top: 10px;
+    margin: 0px;
+`;
+directions.textContent = "Use The Arrow Keys To Move Cursor";
 
 //KNOBS
-/***************************************************************** */
+/***************************************************************** ***************/
 const knobs = document.createElement("div");
 knobs.className = "knobs";
 knobs.style.cssText = `
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 32px;
+    padding: 24px;
     `;
     
 const knobUpDown = document.createElement("div");
@@ -256,6 +302,7 @@ knobs.appendChild(knobUpDown);
 
 model.appendChild(controlsContainer);
 model.appendChild(primary);
+model.appendChild(directions);
 model.appendChild(knobs);
 
 

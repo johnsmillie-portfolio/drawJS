@@ -1,12 +1,11 @@
 
 import {model, primary, small, medium, large} from "./model.js";
-import { initCanvas, initPixels, setPixelColor, setPixelFocus, unsetPixelFocus, togglePenColor, toggleBgColor, togglePenSwitch, toggleSize, resetToggles } from "./helper.js";
+import { initCanvas, initPixels, setPixelColor, setPixelFocus, unsetPixelFocus, togglePenColor, toggleBgColor, togglePenSwitch, toggleSize, resetToggles, highlightItem , removeHighlight } from "./helper.js";
 
 // TODO 
-// highlight the active pen/bg color
-// offer screen sizes
-// pointer selector when on the canvas
 
+// pointer selector when on the canvas
+let size = "medium";
 let height = 500;
 let width = 800;
 let divisor = 10;
@@ -30,7 +29,7 @@ function init(){
     canvas = initCanvas(height, width, bgColor);
     pixels = initPixels(height, width, divisor);
     canvas.replaceChildren(pixels);
-    primary.replaceChildren(canvas);    
+    primary.replaceChildren(canvas);
 }
 
 
@@ -80,13 +79,17 @@ document.addEventListener("click", (e) => {
             bgColorDD = !bgColorDD;
             break; 
         case "penColor":
+            removeHighlight([color, null, null]);
             color = e.target.id;
+            highlightItem([color,null,null]);
             penOn && setPixelColor(pointer[0], pointer[1], color);
             togglePenColor(true);
             penColorDD = false;
             break;
         case  "bgColor":
+            removeHighlight([null, bgColor, null]);
             bgColor = e.target.id;
+            highlightItem([null, bgColor, null]);
             let c = initCanvas(height, width, bgColor);
             c.appendChild(pixels);
             primary.replaceChildren(c);
@@ -98,6 +101,9 @@ document.addEventListener("click", (e) => {
             sizeDD = !sizeDD;
             break;
         case "size":
+            removeHighlight([null, null, size]);
+            size = e.target.id;
+            highlightItem([null, null, size]);
             const obj = e.target.id === "small" ? small : e.target.id === "medium" ? medium : large;
             height = obj.height;
             width = obj.width;
@@ -114,4 +120,4 @@ document.addEventListener("click", (e) => {
     
 })
 
-export {model, setPixelFocus, init};
+export {model, setPixelFocus, init, highlightItem};

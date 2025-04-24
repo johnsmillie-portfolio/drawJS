@@ -9,7 +9,7 @@ model.style.cssText = `
     height: 800px;
     width: 1100px;
     background: linear-gradient( rgb(250, 10, 10,.9) , red 85%, rgb(250, 10, 10,.9));
-    border: 3px solid darkgrey;
+    border: 3px solid grey;
     border-radius: 5px;
     margin: 25px;
     `;
@@ -58,7 +58,7 @@ penSwitch.style.cssText = `
     font-size: 20px;
     background-color: red;
     color: lightgray;
-    border: 2px solid white;
+    border: 2px solid lightgrey;
     border-radius: 5px;
     padding: 5px 15px;
     box-shadow: 0px 8px 8px 0px rgba(25,0,0,0.2);
@@ -68,7 +68,7 @@ penSwitch.style.cssText = `
 // COLORS
 /************************************************************************************************ */
 
-const colors = ["Black", "White", "Antique White", "Red", "Orange", "Yellow", "Green", "Blue", "Purple"];
+const colors = ["Black", "White", "Antique White", "Maroon", "Orange", "Yellow", "Green", "Blue", "Purple"];
 
   // PEN COLORS
 /************************************************************************************************** */
@@ -87,7 +87,7 @@ penColorSelectorButton.style.cssText = `
     color: white;
     box-shadow: 0px 8px 8px 0px rgba(25,0,0,0.2);
     padding: 5px 15px;
-    border: 2px solid white;
+    border: 2px solid lightgrey;
     border-radius: 5px;
     min-width: 150px;
   `;
@@ -141,7 +141,7 @@ bgColorSelectorButton.style.cssText = `
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     color: white;
     padding: 5px 15px;
-    border: 2px solid white;
+    border: 2px solid lightgrey;
     border-radius: 5px;
     min-width: 225px
   `;
@@ -196,7 +196,7 @@ sizeSelectorButton.style.cssText = `
     color: white;
     box-shadow: 0px 8px 8px 0px rgba(25,0,0,0.2);
     padding: 5px 15px;
-    border: 2px solid white;
+    border: 2px solid lightgrey;
     border-radius: 5px;
     min-width: 125px;
 `;

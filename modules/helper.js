@@ -41,7 +41,7 @@ function initCanvas(height, width, bgColor) {
         height: ${height}px;
         width: ${width}px;
         background-color: ${bgColor};
-        border: 2px solid grey;
+        border: 4px solid grey;
         border-radius: 5px;
         margin: 1px;
     `;
@@ -87,6 +87,7 @@ function toggleBgColor(bgColorDD) {
 function togglePenSwitch(penOn) {
     const button = document.getElementsByClassName("penSwitch")[0];
     button.style.color = !penOn ? "#2fff4b" : "lightgray";
+    button.style.border = !penOn ? "2px solid #2fff4b" : "2px solid lightgrey";
     button.textContent = !penOn ? "Pen On" : "Pen Off";
 
 }
@@ -104,4 +105,46 @@ function resetToggles(){
     toggleSize(true);
 }
 
-export { initCanvas, initPixels, setPixelColor, setPixelFocus, unsetPixelFocus, togglePenColor, toggleBgColor, togglePenSwitch, toggleSize, resetToggles }
+function removeHighlight(items){
+    if(items[0]){
+        const list = document.getElementsByClassName("penColor");
+        let f = Array.from(list).filter((ls) => ls.id === items[0]);
+        f[0].style.backgroundColor = "grey";
+        f[0].style.width = "100%";
+    }
+    if(items[1]){
+        const list = document.getElementsByClassName("bgColor");
+        let f = Array.from(list).filter((ls) => ls.id === items[1]);
+        f[0].style.backgroundColor = "grey";
+        f[0].style.width = "100%";
+    }
+    if(items[2]){
+        const list = document.getElementsByClassName("size");
+            let f = Array.from(list).filter((ls) => ls.id === items[2]);
+            f[0].style.backgroundColor = "grey";
+            f[0].style.width = "100%";
+    }
+}
+function highlightItem(items){
+    if(items[0]){
+        const list = document.getElementsByClassName("penColor");
+        let f = Array.from(list).filter((ls) => ls.id === items[0]);
+        f[0].style.backgroundColor = "skyblue";
+        f[0].style.width = "100%";
+
+    }
+    if(items[1]){
+        const list = document.getElementsByClassName("bgColor");
+        let f = Array.from(list).filter((ls) => ls.id === items[1]);
+        f[0].style.backgroundColor = "skyblue";
+        f[0].style.width = "100%";
+    }
+    if(items[2]){
+        const list = document.getElementsByClassName("size");
+            let f = Array.from(list).filter((ls) => ls.id === items[2]);
+            f[0].style.backgroundColor = "skyblue";
+            f[0].style.width = "100%";
+    }
+}
+
+export { initCanvas, initPixels, setPixelColor, setPixelFocus, unsetPixelFocus, togglePenColor, toggleBgColor, togglePenSwitch, toggleSize, resetToggles, highlightItem, removeHighlight }

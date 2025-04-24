@@ -2,9 +2,7 @@
 import {model, primary, small, medium, large} from "./model.js";
 import { initCanvas, initPixels, setPixelColor, setPixelFocus, unsetPixelFocus, togglePenColor, toggleBgColor, togglePenSwitch, toggleSize, resetToggles, highlightItem , removeHighlight } from "./helper.js";
 
-// TODO 
 
-// pointer selector when on the canvas
 let size = "medium";
 let height = 500;
 let width = 800;
@@ -115,7 +113,15 @@ document.addEventListener("click", (e) => {
             togglePenSwitch(true);
         default: 
             resetToggles();
-            penColorDD = bgColorDD = sizeDD = false;        
+            penColorDD = bgColorDD = sizeDD = false;
+            console.log(e.target);
+            if(e.target.className.indexOf(",") !== -1){
+                unsetPixelFocus(pointer[0], pointer[1])
+                const p = e.target.className.split(",");
+                pointer[0] = p[0];
+                pointer[1] = p[1];
+                setPixelFocus(pointer[0], pointer[1]);
+            }        
     }
     
 })

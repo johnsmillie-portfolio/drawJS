@@ -1,6 +1,7 @@
 # drawJS
 **The Odin Project: Etch-a-Sketch Challenge**
 
+>  Live: https://draw-js-snowy.vercel.app/   
 
 ## About
 - drawJS is a colorized etch-a-sketch written in JavaSript. 

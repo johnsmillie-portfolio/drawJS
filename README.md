@@ -1,5 +1,5 @@
 # drawJS
-**The Odin Project Etch-a-Sketch Challenge**
+**The Odin Project: Etch-a-Sketch Challenge**
 
 
 ## About

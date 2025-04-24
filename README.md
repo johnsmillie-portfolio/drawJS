@@ -15,3 +15,7 @@
 - Keyboard and mouse events
 - Component-driven 
 - Frontend Interactivity
+
+## CSS Skills
+- Flexbox
+  
